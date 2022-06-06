@@ -7,12 +7,13 @@
 
 	export let mPoints;
 	// export let ePoints;
+	export let count_by_country;
 
 	let svg;
 	let width = 500;
 	let height = 300;
 
-	const padding = { top: 20, right: 40, bottom: 40, left: 150 };
+	const padding = { top: 20, right: 80, bottom: 40, left: 150 };
 
   let extentX = extent(mPoints, (d) => d.date);
 
@@ -39,6 +40,9 @@
 	function resize() {
 		({ width, height } = svg.getBoundingClientRect());
 	}
+	function handleMouseOver(e) {
+		console.log(e.target.getAttribute("country"));
+	}
 </script>
 
 <svelte:window on:resize='{resize}'/>
@@ -54,7 +58,7 @@
 		{/each} -->
 		{#each countryList as tick, index}
 			<g class='tick tick-{index}' transform='translate(0, {yScale(index)})'>
-				<line x1='{padding.left - 18}' x2='{xScale(new Date("2022/06/24"))}'/>
+				<line x1='{padding.left - 18}' x2='{width - padding.right}'/>
 				<text x='{padding.left - 56}' y='+4'>{tick.country}</text>
 				{#if tick.nato}
         <circle
@@ -85,20 +89,55 @@
 	</g>
 
 	<!-- data -->
-	{#each mPoints.filter(el => el.y !== -1) as point}
-    <!-- <Emoji
-      x='{xScale(point.date)}'
-      y='{yScale(point.y)}'
-      code="es"
-    /> -->
-    <circle
-      class="meeting"
-      cx='{xScale(point.date)}'
-      cy='{yScale(point.y)}'
-      r='5'
-      fill='{point.place == 'In-Person' ? 'orange' : 'lightgray'}'
-    />
-	{/each}
+	<g class="data">
+		{#each mPoints.filter(el => el.y !== -1) as point}
+			<!-- <Emoji
+				x='{xScale(point.date)}'
+				y='{yScale(point.y)}'
+				code="es"
+			/> -->
+			<circle
+				class="meeting"
+				country='{point.country}'
+				cx='{xScale(point.date)}'
+				cy='{yScale(point.y)}'
+				r='5'
+				fill='{point.place == 'In-Person' ? 'orange' : 'lightgray'}'
+			>
+				<title>{point.country}</title>
+			</circle>
+		{/each}
+	</g>
+
+	<g class="bars">
+		{#each mPoints.filter(el => el.y !== -1) as point, i}
+			<circle
+				cx="{width - padding.right + 40}"
+				cy="{yScale(point.y)}"
+				r="{count_by_country[point.country]*0.8}"
+				fill="#cae8e2"
+				fill-opacity=0.6
+				stroke="#8dcec1"
+			/>
+			{#if count_by_country[point.country] >= 10}
+			<text
+				text-anchor="middle"
+				x="{width - padding.right + 40}"
+				y="{yScale(point.y) + 4}"
+			>
+				{count_by_country[point.country]}
+			</text>
+			{/if}
+			<!-- <rect
+				x="{width - padding.right + 20}"
+				y="{yScale(point.y)-4}"
+				height="{8}"
+				width="{count_by_country[point.country]*3}"
+				fill="#CBD5E1"
+			/>
+			-->
+		{/each}
+	</g>
 	<!-- data -->
 	<!-- {#each ePoints.filter(el => el.y !== -1) as point}
     <circle

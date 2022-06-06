@@ -12,11 +12,12 @@
 	import { timeParse } from 'd3-time-format';
 
 
+	let count_by_country = {};
 	data.meeting.forEach(d => {
     d.date = timeParse("%Y/%m/%d")(d.date);
 		d.date = new Date(d.date);
 		d.y = countryList.findIndex(el => el.country == d.country);
-		// console.log(d.country, d.y);
+		count_by_country[d.country] ? count_by_country[d.country] += 1 : count_by_country[d.country] = 1;
   })
 
 	data.event.forEach(d => {
@@ -31,8 +32,7 @@
 <div class="chart">
 	<h1 class="title">Talks with Zelensky</h1>
 	<p class="subtitle">President Zelensky Works in Close Contact with World Leaders</p>
-
-	<Scatterplot mPoints={data.meeting} ePoints={data.event} />
+	<Scatterplot mPoints={data.meeting} ePoints={data.event} count_by_country={count_by_country} />
 </div>
 
 <style>

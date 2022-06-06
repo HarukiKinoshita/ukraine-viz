@@ -79,7 +79,7 @@ export default {
     {
       date: "2022/05/26",
       country: "Finland",
-      place: ""
+      place: "In-Person"
     },
     {
       date: "2022/05/26",

@@ -52,6 +52,186 @@ export default {
   ],
   meeting: [
     {
+      date: "2022/06/02",
+      type: "speech",
+      country: "Luxembourg"
+    },
+    {
+      date: "2022/05/30",
+      type: "speech",
+      country: "EU"
+    },
+    {
+      date: "2022/05/26",
+      type: "speech",
+      country: "Latvia"
+    },
+    {
+      date: "2022/05/22",
+      type: "speech",
+      country: "Poland"
+    },
+    {
+      date: "2022/05/10",
+      type: "speech",
+      country: "Slovakia"
+    },
+    {
+      date: "2022/05/06",
+      type: "speech",
+      country: "Iceland"
+    },
+    {
+      date: "2022/05/03",
+      type: "speech",
+      country: "Albania"
+    },
+    {
+      date: "2022/04/21",
+      type: "speech",
+      country: "Portugal"
+    },
+    {
+      date: "2022/04/13",
+      type: "speech",
+      country: "Estonia"
+    },
+    {
+      date: "2022/04/12",
+      type: "speech",
+      country: "Lithuania"
+    },
+    {
+      date: "2022/04/11",
+      type: "speech",
+      country: "Korea, South"
+    },
+    {
+      date: "2022/04/08",
+      type: "speech",
+      country: "Finland"
+    },
+    {
+      date: "2022/04/07",
+      type: "speech",
+      country: "Cyprus"
+    },
+    {
+      date: "2022/04/07",
+      type: "speech",
+      country: "Greece"
+    },
+    {
+      date: "2022/04/06",
+      type: "speech",
+      country: "Ireland"
+    },
+    {
+      date: "2022/04/05",
+      type: "speech",
+      country: "Spain"
+    },
+    {
+      date: "2022/04/05",
+      type: "speech",
+      country: "UN"
+    },
+    {
+      date: "2022/04/04",
+      type: "speech",
+      country: "Romania"
+    },
+    {
+      date: "2022/03/31",
+      type: "speech",
+      country: "Belgium"
+    },
+    {
+      date: "2022/03/31",
+      type: "speech",
+      country: "Netherlands"
+    },
+    {
+      date: "2022/03/31",
+      type: "speech",
+      country: "Austria"
+    },
+    {
+      date: "2022/03/30",
+      type: "speech",
+      country: "Norway"
+    },
+    {
+      date: "2022/03/29",
+      type: "speech",
+      country: "Denmark"
+    },
+    {
+      date: "2022/03/25",
+      type: "speech",
+      country: "EU"
+    },
+    {
+      date: "2022/03/24",
+      type: "speech",
+      country: "Sweden"
+    },
+    {
+      date: "2022/03/23",
+      type: "speech",
+      country: "France"
+    },
+    {
+      date: "2022/03/23",
+      type: "speech",
+      country: "Japan"
+    },
+    {
+      date: "2022/03/22",
+      type: "speech",
+      country: "Italy"
+    },
+    {
+      date: "2022/03/20",
+      type: "speech",
+      country: "Israel"
+    },
+    {
+      date: "2022/03/19",
+      type: "speech",
+      country: "Switzerland"
+    },
+    {
+      date: "2022/03/17",
+      type: "speech",
+      country: "Germany"
+    },
+    {
+      date: "2022/03/16",
+      type: "speech",
+      country: "United States"
+    },
+    {
+      date: "2022/03/15",
+      type: "speech",
+      country: "Canada"
+    },
+    {
+      date: "2022/03/11",
+      type: "speech",
+      country: "Poland"
+    },
+    {
+      date: "2022/03/08",
+      type: "speech",
+      country: "United Kingdom"
+    },
+    {
+      date: "2022/03/01",
+      type: "speech",
+      country: "EU"
+    },
+    {
       date: "2022/06/01",
       country: "Poland",
       place: "In-Person"

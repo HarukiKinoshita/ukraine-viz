@@ -19,7 +19,7 @@ body.dark-mode　 {
 
 @media (prefers-color-scheme: dark) {
 	body {
-		background-color: #08324b;
+		background-color: #001E26;
 		color: #f8f4e6;
 	}
 }

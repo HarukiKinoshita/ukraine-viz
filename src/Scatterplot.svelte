@@ -5,7 +5,7 @@
   // import { timeParse, timeFormat } from 'd3-time-format';
   import countryList from './country_list.js';
 
-	export let mPoints;
+	export let points;
 	// export let ePoints;
 	export let count_by_country;
 
@@ -13,9 +13,9 @@
 	let width = 500;
 	let height = 300;
 
-	const padding = { top: 20, right: 80, bottom: 40, left: 150 };
+	const padding = { top: 40, right: 80, bottom: 40, left: 150 };
 
-  let extentX = extent(mPoints, (d) => d.date);
+  let extentX = extent(points, (d) => d.date);
 
 	$: xScale = scaleTime()
 		.domain(extentX)
@@ -48,6 +48,8 @@
 <svelte:window on:resize='{resize}'/>
 
 <svg bind:this={svg}>
+	<!-- Description -->
+
 	<!-- y axis -->
 	<g class='axis y-axis'>
 		<!-- {#each yTicks as tick}
@@ -59,18 +61,22 @@
 		{#each countryList as tick, index}
 			<g class='tick tick-{index}' transform='translate(0, {yScale(index)})'>
 				<line x1='{padding.left - 18}' x2='{width - padding.right}'/>
-				<text x='{padding.left - 56}' y='+4'>{tick.country}</text>
+				<text x='{padding.left - 58}' y='+4'>{tick.country}</text>
 				{#if tick.nato}
-        <circle
-          cx='{padding.left - 44}'
-          r='3'
+        <rect
+          x='{padding.left - 46}'
+					y='-2.5'
+          width='5'
+          height='5'
           fill='#4281d4'
         />
         {/if}
 				{#if tick.eu}
-        <circle
-          cx='{padding.left - 32}'
-          r='3'
+        <rect
+          x='{padding.left - 34}'
+					y='-2.5'
+          width='5'
+          height='5'
           fill='#f7c80c'
         />
         {/if}
@@ -83,14 +89,14 @@
 		{#each xScale.ticks(7) as tick}
 			<g class='tick' transform='translate({xScale(tick)},0)'>
 				<line y1='{yScale(0) + 18}' y2='{yScale(countryList.length-1)}'/>
-				<text y='{height - padding.bottom - 14}'>{timeFormat("%b %d")(tick)}</text>
+				<text y='{height - padding.bottom - 10}'>{timeFormat("%b %d")(tick)}</text>
 			</g>
 		{/each}
 	</g>
 
 	<!-- data -->
 	<g class="data">
-		{#each mPoints.filter(el => el.y !== -1) as point}
+		{#each points.filter(el => el.y !== -1 && el.type != "speech") as point}
 			<!-- <Emoji
 				x='{xScale(point.date)}'
 				y='{yScale(point.y)}'
@@ -104,13 +110,26 @@
 				r='5'
 				fill='{point.place == 'In-Person' ? 'orange' : 'lightgray'}'
 			>
-				<title>{point.country}</title>
+				<title>{timeFormat("%b %d")(point.date) + " | " + point.country}</title>
 			</circle>
+		{/each}
+		{#each points.filter(el => el.y !== -1 && el.type === "speech") as point}
+			<rect
+				class="speech"
+				country='{point.country}'
+				x='{xScale(point.date)-3}'
+				y='{yScale(point.y)-3}'
+				width='6'
+				height='6'
+			>
+				<title>{timeFormat("%b %d")(point.date) + " | " + point.country}</title>
+		</rect>
 		{/each}
 	</g>
 
-	<g class="bars">
-		{#each mPoints.filter(el => el.y !== -1) as point, i}
+	<g class="total">
+		<text x='{width - padding.right + 40}' y='{10}' text-anchor='middle'># Total</text>
+		{#each points.filter(el => el.y !== -1) as point, i}
 			<circle
 				cx="{width - padding.right + 40}"
 				cy="{yScale(point.y)}"
@@ -163,6 +182,11 @@
 		stroke: rgba(0,0,0,0.5);
 	}
 
+	rect.speech {
+		fill-opacity: 0.6;
+		fill: turquoise;
+	}
+
 	.x-axis .tick line {
 		stroke: #eee;
 		stroke-dasharray: 2;
@@ -170,6 +194,17 @@
 
 	.y-axis .tick line {
 		stroke: #ddd;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.x-axis .tick line {
+			stroke: #333;
+			stroke-dasharray: 2;
+		}
+
+		.y-axis .tick line {
+			stroke: #333;
+		}
 	}
 
 	text {

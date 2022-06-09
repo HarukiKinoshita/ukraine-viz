@@ -31,9 +31,9 @@
 <div class="chart">
 	<h1 class="title">Zelensky and World Leaders</h1>
 	<p class="subtitle">President Zelensky Works in Close Contact with World Leaders</p>
-	<Scatterplot points={data.meeting} ePoints={data.event} count_by_country={count_by_country} />
+	<Scatterplot points={data.meeting} ePoints={data.event} count_by_country={count_by_country} countryList={countryList} />
 	<div style="text-align: center;">
-		<Map />
+		<Map countryList={countryList} />
 	</div>
 </div>
 

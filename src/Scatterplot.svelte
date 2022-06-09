@@ -3,11 +3,11 @@
   import { scaleLinear, timeParse, timeFormat, timeDay, extent, scaleTime } from 'd3';
   // import { scaleLinear, scaleTime } from 'd3-scale';
   // import { timeParse, timeFormat } from 'd3-time-format';
-  import countryList from './country_list.js';
 
 	export let points;
 	// export let ePoints;
 	export let count_by_country;
+	export let countryList;
 
 	let svg;
 	let width = 500;
@@ -39,9 +39,6 @@
 
 	function resize() {
 		({ width, height } = svg.getBoundingClientRect());
-	}
-	function handleMouseOver(e) {
-		console.log(e.target.getAttribute("country"));
 	}
 </script>
 
@@ -117,10 +114,10 @@
 			<rect
 				class="speech"
 				country='{point.country}'
-				x='{xScale(point.date)-3}'
-				y='{yScale(point.y)-3}'
-				width='6'
-				height='6'
+				x='{xScale(point.date)-4}'
+				y='{yScale(point.y)-4}'
+				width='8'
+				height='8'
 			>
 				<title>{timeFormat("%b %d")(point.date) + " | " + point.country}</title>
 		</rect>
@@ -184,7 +181,7 @@
 
 	rect.speech {
 		fill-opacity: 0.6;
-		fill: turquoise;
+		fill: darkturquoise;
 	}
 
 	.x-axis .tick line {

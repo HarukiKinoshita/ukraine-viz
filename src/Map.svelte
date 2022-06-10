@@ -24,10 +24,10 @@
   // $: vueltos = `M${countryList.map(p => `${projection(p.location)}`).join('L')}`;
   // $: vueltos = `M${data.meeting.map(p => `${projection(countryList.find(el => el.country.includes(p.country)).location)}`).join('L')}`;
 
-  $: color_approve = "#14B8A6"
-  $: color_against = "#F43F5E"
-  $: color_abstain = "#EAB308"
-  $: color_absent = "#64748B"
+  $: color_approve = "#0D9488"
+  $: color_against = "#E11D48"
+  $: color_abstain = "#CA8A04"
+  $: color_absent = "#475569"
 
   function selectColor(name, currentNum) {
     if (voting[currentNum].approve.find(el => el == name)) return color_approve
@@ -49,30 +49,29 @@
       stroke-width: 0.5;
     }
   }
-  .voting td {
-    padding: 4px 6px;
-    min-width: 10vw;
+  .bar-item {
+    padding: .2rem 0;
+    font-weight: bold;
   }
 </style>
 
 <div>
-  <button on:click={() => {currentNum = 0}}>Crimia</button>
-  <button on:click={() => {currentNum = 1}}>Ukraine</button>
-  <h2>{ voting[currentNum].name }</h2>
-  <table class="voting" align="center">
-    <tr>
-      <td style="background: {color_approve}">Approved</td>
-      <td style="background: {color_against}">Against</td>
-      <td style="background: {color_abstain}">Abstain</td>
-      <td style="background: {color_absent}">Absent</td>
-    </tr>
-    <tr style="font-size: 3rem; font-weight: bold;">
-      <td>{ voting[currentNum].approve.length }</td>
-      <td>{ voting[currentNum].against.length }</td>
-      <td>{ voting[currentNum].abstain.length }</td>
-      <td>{ voting[currentNum].absent.length }</td>
-    </tr>
-  </table>
+  <button on:click={() => {currentNum = 0}}>2014</button>
+  <button on:click={() => {currentNum = 1}}>2022</button>
+  <h3>{ voting[currentNum].name }</h3>
+
+  <div style="display: flex; font-size: 12px; margin-bottom: 4px;">
+    <div style="width: {voting[currentNum].approve.length * 100 /193}%;}">Approve</div>
+    <div style="width: {voting[currentNum].abstain.length * 100 /193}%;}">Abstain</div>
+    <div style="width: {voting[currentNum].absent.length * 100 /193}%;}">Absent</div>
+    <div style="width: {voting[currentNum].against.length * 100 /193}%;}">Against</div>
+  </div>
+  <div style="display: flex; margin-bottom: 2rem;">
+    <div class="bar-item" style="width: {voting[currentNum].approve.length * 100 /193}%; background: {color_approve};">{voting[currentNum].approve.length}</div>
+    <div class="bar-item" style="width: {voting[currentNum].abstain.length * 100 /193}%; background: {color_abstain}">{voting[currentNum].abstain.length}</div>
+    <div class="bar-item" style="width: {voting[currentNum].absent.length * 100 /193}%; background: {color_absent}">{voting[currentNum].absent.length}</div>
+    <div class="bar-item" style="width: {voting[currentNum].against.length * 100 /193}%; background: {color_against}">{voting[currentNum].against.length}</div>
+  </div>
 </div>
 
 <svg viewBox="0 0 1000 430" style="width: 100%; height: 100%;">

@@ -28,26 +28,37 @@
   })
 </script>
 
+<div class="top" style="text-align: center;">
+	<h1 class="title">Ukraine Gained Momentum</h1>
+	<p class="subtitle">Casting a Spotlight on Ukraine's Victory on the World Stage</p>
+</div>
+
 <div class="chart">
-	<h1 class="title">Zelensky and World Leaders</h1>
-	<p class="subtitle">President Zelensky Works in Close Contact with World Leaders</p>
-	<Scatterplot points={data.meeting} ePoints={data.event} count_by_country={count_by_country} countryList={countryList} />
+	<h2 class="headline">Eight years ago, and Now</h2>
 	<div style="text-align: center;">
 		<Map countryList={countryList} />
 	</div>
+
+	<h2 class="headline">It all starts with saying "Hello?"</h2>
+	<Scatterplot points={data.meeting} ePoints={data.event} count_by_country={count_by_country} countryList={countryList} />
 </div>
 
 <style>
 	.title {
 		font-family: 'Playfair Display', serif;
 		margin-bottom: 4px;
-		font-size: 3rem;
+		font-size: 3.5rem;
 	}
 	.subtitle {
 		font-family: 'Playfair Display', serif;
-		margin-top: 0;
-		font-size: 1.4rem;
+		font-size: 1.2rem;
 		color: #94A3B8;
+	}
+	.headline {
+		font-family: 'Playfair Display', serif;
+		margin: 12vh 0 4vh 0;
+		font-size: 2.5rem;
+		text-align: center;
 	}
 	.chart {
 		width: 100%;

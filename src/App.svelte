@@ -29,7 +29,7 @@
 </script>
 
 <div class="top" style="text-align: center;">
-	<h1 class="title">Ukraine Gained Momentum</h1>
+	<h1 class="title">How Ukraine Has Gained Momentum</h1>
 	<p class="subtitle">Casting a Spotlight on Ukraine's Victory on the World Stage</p>
 </div>
 

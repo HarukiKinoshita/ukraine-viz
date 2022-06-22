@@ -40,7 +40,7 @@
 	</div>
 
 	<h2 class="headline">It all starts with saying "Hello?"</h2>
-	<Scatterplot points={data.meeting} ePoints={data.event} count_by_country={count_by_country} countryList={countryList} />
+	<Scatterplot points={data.meeting} ePoints={data.event} count_by_country={count_by_country} countryList={countryList} style="position: relative;" />
 </div>
 
 <style>
@@ -57,8 +57,12 @@
 	.headline {
 		font-family: 'Playfair Display', serif;
 		margin: 12vh 0 4vh 0;
+		font-style: italic;
 		font-size: 2.5rem;
-		text-align: center;
+		width: 25vw;
+		min-width: 360px;
+		text-decoration: underline;
+		text-decoration-color: #94A3B8;
 	}
 	.chart {
 		width: 100%;

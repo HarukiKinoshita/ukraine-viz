@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-  import { scaleLinear, timeParse, timeFormat, timeDay, extent, scaleTime } from 'd3';
+  import { scaleLinear, timeParse, timeFormat, timeDay, extent, scaleTime, mouse } from 'd3';
   // import { scaleLinear, scaleTime } from 'd3-scale';
   // import { timeParse, timeFormat } from 'd3-time-format';
 
@@ -16,6 +16,9 @@
 	const padding = { top: 40, right: 80, bottom: 40, left: 150 };
 
   let extentX = extent(points, (d) => d.date);
+
+	let mousePosition = { x: 0, y: 0 }; 
+	let target = { country: null, date: null, place: null };
 
 	$: xScale = scaleTime()
 		.domain(extentX)
@@ -39,6 +42,19 @@
 
 	function resize() {
 		({ width, height } = svg.getBoundingClientRect());
+	}
+
+	function showTooltip(point) {
+		mousePosition.x = event.clientX;
+		mousePosition.y = event.clientY;
+		target.country = point.country;
+		target.date = point.date;
+		target.place = point.place;
+		target.type = point.type;
+		// console.log(target);
+	}
+	function hideTooltip() {
+		target = { country: null, date: null, place: null, type: null };
 	}
 </script>
 
@@ -105,21 +121,27 @@
 				cx='{xScale(point.date)}'
 				cy='{yScale(point.y)}'
 				r='5'
+				on:mouseover='{showTooltip(point)}'
+				on:focus='{showTooltip(point)}'
+				on:mouseout='{hideTooltip}'
+				on:blur='{hideTooltip}'
 				fill='{point.place == 'In-Person' ? 'orange' : 'lightgray'}'
 			>
-				<title>{timeFormat("%b %d")(point.date) + " | " + point.country}</title>
 			</circle>
 		{/each}
 		{#each points.filter(el => el.y !== -1 && el.type === "speech") as point}
 			<rect
 				class="speech"
 				country='{point.country}'
-				x='{xScale(point.date)-4}'
-				y='{yScale(point.y)-4}'
-				width='8'
-				height='8'
+				x='{xScale(point.date)-3}'
+				y='{yScale(point.y)-3}'
+				width='6'
+				height='6'
+				on:mouseover='{showTooltip(point)}'
+				on:focus='{showTooltip(point)}'
+				on:mouseout='{hideTooltip}'
+				on:blur='{hideTooltip}'
 			>
-				<title>{timeFormat("%b %d")(point.date) + " | " + point.country}</title>
 		</rect>
 		{/each}
 	</g>
@@ -164,7 +186,26 @@
       fill-opacity='0.6'
     />
 	{/each} -->
+
+	<!-- {#if target.country !== null}
+	<g>
+		<rect class="card" x={mousePosition.x} y={mousePosition.y}; width={200} height={150} fill="#CBD5E1"></rect>
+		<text x={mousePosition.x} y={mousePosition.y} fill={"blue"}>Hello, { target.country }, { mousePosition.x }, { mousePosition.y }</text>
+	</g>
+	{/if} -->
 </svg>
+
+{#if target.country !== null}
+<div class="card" style="position: fixed; left: {mousePosition.x+10}px; top: {mousePosition.y+10}px;">
+	<p style="margin: 0 0 5px 0;"><strong>{ target.country }</strong></p>
+	<small>{ timeFormat("%b %d, %Y")(target.date) }</small><br>
+	{#if target.type == "speech"}
+		<small>President Zelensky's Speech</small>
+	{:else}
+		<small>{ target.place === "In-Person" ? 'In-Person Meeting' : 'Phone Conversation' }</small>
+	{/if}
+</div>
+{/if}
 
 <style>
 	svg {
@@ -215,5 +256,15 @@
 
 	.y-axis text {
 		text-anchor: end;
+	}
+
+	.card {
+		padding: 0.75rem;
+		background-color: #FFFFFF;
+		font-size: 12px;
+		color: #999;
+		/* box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px; */
+		box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+		z-index: 100;
 	}
 </style>

@@ -5,6 +5,8 @@
 	<meta property="og:title" content="How Ukraine Has Gained Momentum"> 
 	<meta property="og:description" content="Casting a Spotlight on Ukraine's Victory on the World Stage"> 
 	<meta property="og:image" content="https://ukraine-viz.vercel.app/ogimage.png"> 
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@harukikinoshita" />
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
 	</style>

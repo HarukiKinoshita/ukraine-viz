@@ -1,9 +1,12 @@
 
 <script>
   import { geoAlbers, geoNaturalEarth1, geoConicEqualArea, geoPath } from "d3-geo";
-  import { onMount } from "svelte";
+  import { getContext, onMount } from "svelte";
   import { feature } from "topojson";
   import voting from './voting.js';
+  import { colors } from './config.js';
+
+  export let theme = getContext("theme");
 
   // export let countryList;
   let selected;
@@ -24,16 +27,11 @@
   // $: vueltos = `M${countryList.map(p => `${projection(p.location)}`).join('L')}`;
   // $: vueltos = `M${data.meeting.map(p => `${projection(countryList.find(el => el.country.includes(p.country)).location)}`).join('L')}`;
 
-  $: color_approve = "#0D9488"
-  $: color_against = "#E11D48"
-  $: color_abstain = "#CA8A04"
-  $: color_absent = "#475569"
-
   function selectColor(name, currentNum) {
-    if (voting[currentNum].approve.find(el => el == name)) return color_approve
-    else if (voting[currentNum].against.find(el => el == name)) return color_against
-    else if (voting[currentNum].abstain.find(el => el == name)) return color_abstain
-    else if (voting[currentNum].absent.find(el => el == name)) return color_absent
+    if (voting[currentNum].approve.find(el => el == name)) return colors[theme].color_approve
+    else if (voting[currentNum].against.find(el => el == name)) return colors[theme].color_against
+    else if (voting[currentNum].abstain.find(el => el == name)) return colors[theme].color_abstain
+    else if (voting[currentNum].absent.find(el => el == name)) return colors[theme].color_absent
     else return "rgba(255,255,255,0.2)"
     // https://tailwindcss.com/docs/customizing-colors
   }
@@ -86,10 +84,10 @@
     <div style="width: {voting[currentNum].against.length * 100 /193}%;}">Against</div>
   </div>
   <div style="display: flex; margin-bottom: 2rem;">
-    <div class="bar-item" style="width: {voting[currentNum].approve.length * 100 /193}%; background: {color_approve};">{voting[currentNum].approve.length}</div>
-    <div class="bar-item" style="width: {voting[currentNum].abstain.length * 100 /193}%; background: {color_abstain}">{voting[currentNum].abstain.length}</div>
-    <div class="bar-item" style="width: {voting[currentNum].absent.length * 100 /193}%; background: {color_absent}">{voting[currentNum].absent.length}</div>
-    <div class="bar-item" style="width: {voting[currentNum].against.length * 100 /193}%; background: {color_against}">{voting[currentNum].against.length}</div>
+    <div class="bar-item" style="width: {voting[currentNum].approve.length * 100 /193}%; background: {colors[theme].color_approve};">{voting[currentNum].approve.length}</div>
+    <div class="bar-item" style="width: {voting[currentNum].abstain.length * 100 /193}%; background: {colors[theme].color_abstain}">{voting[currentNum].abstain.length}</div>
+    <div class="bar-item" style="width: {voting[currentNum].absent.length * 100 /193}%; background: {colors[theme].color_absent}">{voting[currentNum].absent.length}</div>
+    <div class="bar-item" style="width: {voting[currentNum].against.length * 100 /193}%; background: {colors[theme].color_against}">{voting[currentNum].against.length}</div>
   </div>
 </div>
 

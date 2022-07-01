@@ -6,11 +6,17 @@
 
 
 <script>
+	import { getContext, setContext } from 'svelte';
 	import Scatterplot from './Scatterplot.svelte';
 	import Map from './Map.svelte';
 	import data from './data.js';
 	import countryList from './country_list.js';
 	import { timeParse } from 'd3-time-format';
+
+	const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+	const isDarkMode = darkModeMediaQuery.matches;
+	setContext("theme", isDarkMode ? "dark" : "light");
+	console.log(getContext("theme"));
 
 	let count_by_country = {};
 	data.meeting.forEach(d => {

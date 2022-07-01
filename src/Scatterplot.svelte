@@ -3,6 +3,9 @@
   import { scaleLinear, timeParse, timeFormat, timeDay, extent, scaleTime, mouse } from 'd3';
   // import { scaleLinear, scaleTime } from 'd3-scale';
   // import { timeParse, timeFormat } from 'd3-time-format';
+	// import { createEventDispatcher } from 'svelte';
+
+	// const dispatch = createEventDispatcher();
 
 	export let points;
 	// export let ePoints;
@@ -10,10 +13,10 @@
 	export let countryList;
 
 	let svg;
-	let width = 500;
-	let height = 300;
+	export let width = 500;
+	export let height = 300;
 
-	const padding = { top: 40, right: 80, bottom: 40, left: 150 };
+	const padding = { top: 40, right: 75, bottom: 40, left: 150 };
 
   let extentX = extent(points, (d) => d.date);
 
@@ -38,10 +41,21 @@
 	// 	[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20] :
 	// 	[0, 4, 8, 12];
 
+	$: isLargeDisplay = true;
+
 	onMount(resize);
 
 	function resize() {
 		({ width, height } = svg.getBoundingClientRect());
+		if (width > 640) {
+			isLargeDisplay = true;
+			padding.left = 150;
+		}
+		else {
+			isLargeDisplay = false;
+			padding.left = 75;
+		}
+		// dispatch('updateChild', { width: width, height: height });
 	}
 
 	function showTooltip(point) {
@@ -74,7 +88,7 @@
 		{#each countryList as tick, index}
 			<g class='tick tick-{index}' transform='translate(0, {yScale(index)})'>
 				<line x1='{padding.left - 18}' x2='{width - padding.right}'/>
-				<text x='{padding.left - 58}' y='+4'>{tick.country}</text>
+				<text x='{padding.left - 58}' y='+4' font-family='{isLargeDisplay ? "" : "monospace"}'>{isLargeDisplay ? tick.country : tick.abbr}</text>
 				{#if tick.nato}
         <rect
           x='{padding.left - 46}'
@@ -118,10 +132,12 @@
 			<circle
 				class="meeting"
 				country='{point.country}'
+				date='{timeFormat("%m%d%Y")(target.date)}'
 				cx='{xScale(point.date)}'
 				cy='{yScale(point.y)}'
 				r='5'
 				on:mouseover='{showTooltip(point)}'
+				on:click='{showTooltip(point)}'
 				on:focus='{showTooltip(point)}'
 				on:mouseout='{hideTooltip}'
 				on:blur='{hideTooltip}'
@@ -133,11 +149,13 @@
 			<rect
 				class="speech"
 				country='{point.country}'
+				date='{timeFormat("%m%d%Y")(target.date)}'
 				x='{xScale(point.date)-3}'
 				y='{yScale(point.y)-3}'
 				width='6'
 				height='6'
 				on:mouseover='{showTooltip(point)}'
+				on:click='{showTooltip(point)}'
 				on:focus='{showTooltip(point)}'
 				on:mouseout='{hideTooltip}'
 				on:blur='{hideTooltip}'

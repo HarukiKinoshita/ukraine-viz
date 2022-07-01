@@ -53,6 +53,7 @@
 		border-radius: 0;
     cursor: pointer;
     font-size: 1.5rem;
+    font-weight: bold;
     padding-left: 32px;
     padding-right: 32px;
     opacity: 0.5;
@@ -60,7 +61,6 @@
   .selected {
     opacity: 1;
     border-bottom: 5px solid #2DD4BF;
-    font-weight: bold;
   }
   @media (prefers-color-scheme: dark) {
     .border {
@@ -77,7 +77,7 @@
   <button on:click={() => {currentNum = 1}} class:selected="{currentNum == 1}">2022</button>
   <p>{ voting[currentNum].name }</p>
 
-  <div style="display: flex; font-size: 12px; margin-bottom: 4px;">
+  <div style="display: flex; font-size: .75rem; margin-bottom: 4px;">
     <div style="width: {voting[currentNum].approve.length * 100 /193}%;}">Approve</div>
     <div style="width: {voting[currentNum].abstain.length * 100 /193}%;}">Abstain</div>
     <div style="width: {voting[currentNum].absent.length * 100 /193}%;}">Absent</div>

@@ -1,8 +1,17 @@
-# This repo is no longer maintained. Consider using `npm init vite` and selecting the `svelte` option or  if you want a full-fledged app framework and don't mind using pre-1.0 software  use [SvelteKit](https://kit.svelte.dev), the official application framework for Svelte.
+# Visual Storytelling on Ukraine's Diplomatic Achievements
+
+## Data Source
+I am creating a comprehensive record of President Zelensky's dialogue with world leaders. Here are the major data sources: 
+
+- **Press release from the Office of the President of Ukraine**: Important meetings, especially face-to-face meetings, are listed here.
+- **President Zelensky's tweet**: Videoconferences and phone conversations are disclosed, but some will be missed when a lot of meetings take place on the same day.
+- **Tweet from the counterpart**: Many leaders take the opportunity to promote their  presence on the global stage. 
+
+[President Zelensky Dialogue Record](https://docs.google.com/spreadsheets/d/1FBjOKr0H2LeB7WpMf6LL6uVc_EVqhJWuFjlx1GB9Rhg/edit?usp=sharing) 
 
 ---
 
-# svelte app
+## Svelte App
 
 This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
 

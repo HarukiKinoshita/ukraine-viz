@@ -60,7 +60,7 @@
 
 <svelte:window on:resize='{resize}'/>
 
-<svg bind:this={svg} on:click='{hideTooltip}'>
+<svg bind:this={svg}>
 	<!-- Description -->
 
 	<!-- y axis -->
